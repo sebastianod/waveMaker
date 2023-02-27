@@ -4,19 +4,23 @@ import numpy as np
 #Domain
 x = np.linspace(0, 2*np.pi, 1000)
 
+#height
+height = 8
+
 #Fourier Series
-def fourierSeries(height, mainAmplitude, domain, crazyness): #the higher n, the quicker you see a pattern
-  y = height
+def fourierSeries(mainAmplitude, domain, crazyness): #the higher n, the quicker you see a pattern
+  y = 0
   for i in range(crazyness):
     an = np.random.rand()
     bn = np.random.rand()
     y += an*np.cos(i*domain) + bn*np.sin(i*domain)
   return mainAmplitude*y
 
-y = fourierSeries(0, 0.5, x, 6)
+#RANGES: height: 0-8, crazyness: 2-10 , amplitude: 0.1 - 0.5
+y = fourierSeries(0.5, x, 10)
 
-#Above zero and height
-actualY = y - y.min() + 14 #take the minimum negative value and add a height
+#Above zero
+actualY = y - y.min() #take the minimum negative value and add a height
 
 # Create a figure and axis
 fig, ax = plt.subplots()
@@ -25,13 +29,13 @@ fig, ax = plt.subplots()
 #ax.plot(x, actualY, color='blue')
 
 # Fill the area underneath the curve with color
-ax.fill_between(x, 0, actualY, where=actualY>0, interpolate=True, color='#3D2386', alpha=1)
+ax.fill_between(x, 0, actualY+height, where=actualY>0, interpolate=True, color='#3D2386', alpha=1)
 
 #Fill the area above the curve with red
 #ax.fill_between(x, actualY.max()+5, actualY, where=actualY>0, interpolate=True, color='red', alpha=1)
 
 # set x and y limits of the plot
-ax.set_ylim(0.0,actualY.max()+5)# maximum value of the function plus a constant
+ax.set_ylim(0.0,15)# maximum value of the function plus a constant
 ax.set_xlim(0.0, x[-1]) #from zero to the last value of the x array
 
 #Do not show axis
