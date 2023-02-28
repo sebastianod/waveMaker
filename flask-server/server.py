@@ -10,7 +10,7 @@ app = Flask(__name__)
 CORS(app)
 
 # Route for seeing a data
-@app.route('/data')
+@app.route('/data', methods=['GET','POST'])
 def get_data():
     x = datetime.datetime.now()
     # Returning an api for showing in reactjs

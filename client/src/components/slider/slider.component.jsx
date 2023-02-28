@@ -15,7 +15,7 @@ const Slider = (props) => {
     setValues({...values, [name]: value }); //set its specific value inside the global values object (h, a, crazyns)
   };
 
-  console.log(values);
+  // console.log(values);
 
   return (
     <div className="slider-container">
