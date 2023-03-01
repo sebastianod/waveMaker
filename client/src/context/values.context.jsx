@@ -7,7 +7,7 @@ export const ValuesContext = createContext({
 });
 
 const defaultValues = {
-  height: 0,
+  height: 2,
   amplitude: 0.2,
   crazyness: 3,
   backgroundColor: "#2596be",
