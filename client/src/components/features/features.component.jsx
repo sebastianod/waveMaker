@@ -21,14 +21,13 @@ const Features = () => {
     const response_data = await response.json(); // obtain the response data. comes in as {svg: encoded_svg}, where encoded_svg is in string, the whole thing is in json.
     const encoded_svg = response_data.svg; // type: string, base64. Destructure the encoded SVG from our response. It's a string that was encoded from base64.
     const decoded_svg = atob(encoded_svg); // type: string, svg-xml. The atob() function decodes a string of data which has been encoded using Base64 encoding.
-    setSvgText(decoded_svg); // set the binary data as the SVG source
-    // console.log(decoded_svg)
+    setSvgText(decoded_svg); // type: string. Set the binary data as the SVG source
+    // console.log(typeof(decoded_svg))
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     sendData(values); // send the values
-    console.log("I got clicked");
   };
 
 

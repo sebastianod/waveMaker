@@ -1,4 +1,4 @@
-import "./App.css";
+import "./App.scss";
 import Features from "./components/features/features.component";
 
 function App() { 
