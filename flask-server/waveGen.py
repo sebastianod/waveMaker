@@ -6,7 +6,7 @@ from flask_cors import CORS
 import json
 from operator import itemgetter
 import io
-import base64 #to turn svg to string and later to json
+import base64  # to turn svg to string and later to json
 
 # Initializing flask app
 app = Flask(__name__)
@@ -14,16 +14,17 @@ app = Flask(__name__)
 # #enable CORS
 CORS(app)
 
-#This sets the backend to Agg and avoids any issues related to creating matplotlib figures in a non-interactive environment.
-matplotlib.use('Agg') 
+# This sets the backend to Agg and avoids any issues related to creating matplotlib figures in a non-interactive environment.
+matplotlib.use('Agg')
 
 # ======== wave creation ========== #
 
+
 @app.route('/getwave', methods=['POST'])
 def my_function():
-    #------------receive values------------#
+    # ------------receive values------------#
     values = request.get_json()  # convert data (request) in JSON to python dict
-    
+
     # -----------extract values-----------#
     clientHeight, clientAmplitude, clientCrazyness, clientBackgroundColor, clientWaveColor = itemgetter(
         "height",
@@ -32,13 +33,13 @@ def my_function():
         "backgroundColor",
         "waveColor")(values)  # destructuring incoming data
 
-    clientHeight = int(clientHeight) #turn string to int
+    clientHeight = int(clientHeight)  # turn string to int
     clientCrazyness = int(clientCrazyness)
-    clientAmplitude = float(clientAmplitude) #turn string to float (decimals)
+    clientAmplitude = float(clientAmplitude)  # turn string to float (decimals)
 
     # ------------Generate wave------------#
 
-    #Domain
+    # Domain
     x = np.linspace(0, 2*np.pi, 1000)
 
     # -----------Fourier Series----------#
@@ -48,7 +49,9 @@ def my_function():
         for i in range(crazyness):
             an = np.random.rand()
             bn = np.random.rand()
-            y += an*np.cos(i*domain) + bn*np.sin(i*domain)
+            alpha = np.random.rand()*3
+            beta = np.random.rand()*4
+            y += an*np.cos(i*domain + alpha) + bn*np.sin(i*domain + beta)
         return amplitude*y
 
     # RANGES: height: 0-8, crazyness: 2-10 , amplitude: 0.1 - 0.5
@@ -61,7 +64,7 @@ def my_function():
     fig, ax = plt.subplots()
 
     # Plot the sine wave
-    #ax.plot(x, actualY, color='blue')
+    # ax.plot(x, actualY, color='blue')
 
     # Fill the area underneath the curve with color
     ax.fill_between(
@@ -75,7 +78,7 @@ def my_function():
     )
 
     # Fill the area above the curve with red
-    #ax.fill_between(x, actualY.max()+5, actualY, where=actualY>0, interpolate=True, color='red', alpha=1)
+    # ax.fill_between(x, actualY.max()+5, actualY, where=actualY>0, interpolate=True, color='red', alpha=1)
 
     # set x and y limits of the plot
     ax.set_ylim(0.0, 15)  # maximum value of the function plus a constant
@@ -99,23 +102,28 @@ def my_function():
     fig.savefig("test.svg", facecolor=fig.get_facecolor(),
                 edgecolor='none', pad_inches=0)
     
-    #----------Encoding------------#
-    
+    # close the figure to free up memory
+    plt.close(fig)
+
+    # ----------Encoding------------#
+
     # load the SVG file and encode it to base64 and then to string
     with open('test.svg', 'rb') as file:
-        encoded_svg = base64.b64encode(file.read()).decode('utf-8') # convert bytes to str
+        encoded_svg = base64.b64encode(file.read()).decode(
+            'utf-8')  # convert bytes to str
 
     # create the response JSON data with the encoded SVG
-    response_data = {'svg': encoded_svg} #encoded_svg is in str
+    response_data = {'svg': encoded_svg}  # encoded_svg is in str
 
     # return the response as JSON
-    return jsonify(response_data) #jsonify is a flask wrapper
+    return jsonify(response_data)  # jsonify is a flask wrapper
+
 
 if __name__ == '__main__':
     app.run(debug=True)
 
 # This code converts to base 64 which can be converted easily online back to an svg
-#-----Convert svg to base64-----#
+# -----Convert svg to base64-----#
 
     # with open('test.svg', 'rb') as file:
     #     encoded_svg = base64.b64encode(file.read()) # svg->base64

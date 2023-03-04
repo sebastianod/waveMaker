@@ -1,4 +1,3 @@
-import { useState } from "react";
 import "./slider.styles.scss";
 import { useContext } from "react";
 import { ValuesContext } from "../../context/values.context";
@@ -16,7 +15,7 @@ const Slider = (props) => {
 
   return (
     <div className="slider-container">
-      <label className="label">{name}</label>
+      <label className="slider-label">{name}</label>
       <input
         type="range"
         className="slider"

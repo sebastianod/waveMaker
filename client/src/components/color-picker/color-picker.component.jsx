@@ -1,9 +1,10 @@
-import { useContext, useState } from "react";
+import "./color-picker.styles.scss";
+import { useContext } from "react";
 import { ValuesContext } from "../../context/values.context";
 
 const ColorPicker = (props) => {
   //either background or wave color
-  const { name, label, defaultColor } = props; //passed down by features
+  const { name, label } = props; //passed down by features
   const { values, setValues } = useContext(ValuesContext);
 
   const handleChange = (event) => {
@@ -13,9 +14,10 @@ const ColorPicker = (props) => {
   };
 
   return (
-    <div>
+    <div className="picker-container">
       <label className="label">{label}</label>
       <input
+        className="color-picker"
         type="color"
         id={name}
         name={name}

@@ -1,12 +1,17 @@
-.slider-container {
+.picker-container {
     display: flex;
     flex-direction: column;
     padding: 0.4rem;
     justify-content: center;
     align-items: center;
 
-    .slider-label {
+    .label {
         padding: 5px;
+        display: flex;
+        justify-content: center;
+    }
+    .color-picker {
+        padding: 0;
         display: flex;
         justify-content: center;
     }
