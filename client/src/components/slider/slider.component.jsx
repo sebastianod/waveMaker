@@ -1,9 +1,9 @@
 import "./slider.styles.scss";
-import { useContext } from "react";
+import { useContext} from "react";
 import { ValuesContext } from "../../context/values.context";
 
 const Slider = (props) => {
-  const { min, max, step, name } = props;
+  const { min, max, step, name, label } = props;
   const { values, setValues } = useContext(ValuesContext); //contains each of the values, height, amplitude and crazyness. To be used in each slider so as to change its own value found here.
 
   const handleChange = (event) => {
@@ -15,7 +15,7 @@ const Slider = (props) => {
 
   return (
     <div className="slider-container">
-      <label className="slider-label">{name}</label>
+      <label className="slider-label">{label}</label>
       <input
         type="range"
         className="slider"

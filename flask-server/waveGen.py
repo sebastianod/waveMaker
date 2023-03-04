@@ -40,7 +40,7 @@ def my_function():
     # ------------Generate wave------------#
 
     # Domain
-    x = np.linspace(0, 2*np.pi, 1000)
+    x = np.linspace(0, 2*np.pi, 4000)
 
     # -----------Fourier Series----------#
     # the higher n, the quicker you see a pattern
@@ -63,8 +63,8 @@ def my_function():
     # Create a figure and axis
     fig, ax = plt.subplots()
 
-    # Plot the sine wave
-    # ax.plot(x, actualY, color='blue')
+    # set the size of the figure to 6 inches wide by 4 inches tall
+    fig.set_size_inches(13, 4)
 
     # Fill the area underneath the curve with color
     ax.fill_between(

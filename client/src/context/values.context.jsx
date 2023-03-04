@@ -7,11 +7,11 @@ export const ValuesContext = createContext({
 });
 
 const defaultValues = {
-  height: 2,
-  amplitude: 0.2,
-  crazyness: 3,
-  backgroundColor: "#2596be",
-  waveColor: "#145369",
+  height: 4,
+  amplitude: 0.3,
+  crazyness: 6,
+  backgroundColor: "#1234BA",
+  waveColor: "#FFF700",
 };
 
 export const ValuesProvider = ({ children }) => {

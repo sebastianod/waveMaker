@@ -10,7 +10,11 @@ const Output = (props) => {
   return (
     <div className="output-container">
       {!svgText ? (
-        <img src={process.env.PUBLIC_URL + "/default.svg"} alt="wave" />
+        <img
+          src={process.env.PUBLIC_URL + "/default.svg"}
+          className="image"
+          alt="wave"
+        />
       ) : (
         <img
           src={`data:image/svg+xml;base64,${btoa(svgText)}`}
@@ -18,19 +22,6 @@ const Output = (props) => {
           alt="Wave"
         />
       )}
-      <div className="download-container">
-        <a
-          href={
-            !svgText
-              ? process.env.PUBLIC_URL + "/default.svg"
-              : `data:image/svg+xml;base64,${btoa(svgText)}`
-          }
-          className="download-text"
-          download
-        >
-          Download SVG
-        </a>
-      </div>
     </div>
   );
 };
