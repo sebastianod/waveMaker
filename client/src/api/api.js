@@ -1,6 +1,6 @@
 //-------function for sending-receiving data-------//
 export const sendReceiveData = async (data, setterFunction) => {
-    const response = await fetch("http://127.0.0.1:5000/getwave", {
+    const response = await fetch("http://127.0.0.1:5000/api/getwave", { //use api route for any api related task
       method: "POST",
       headers: {
         "Content-Type": "application/json", //tell flask what type of data is incoming

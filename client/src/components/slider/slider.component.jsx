@@ -18,8 +18,6 @@ const Slider = (props) => {
 
   const handleMouseUp = () => {
     sendReceiveData(values, setSvgText)
-    console.log("I got dropped!");
-    console.log(values);
   }  
   // Use values[name] and not values.name since the property value is dynamic, we know it only at run time. 
 

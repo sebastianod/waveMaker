@@ -19,8 +19,6 @@ const ColorPicker = (props) => {
 
   const handleBlur = () => {
     sendReceiveData(values, setSvgText)
-    console.log("I got dropped!");
-    console.log(values);
   }  
 
   return (

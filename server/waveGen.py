@@ -20,7 +20,7 @@ matplotlib.use('Agg')
 # ======== wave creation ========== #
 
 
-@app.route('/getwave', methods=['POST'])
+@app.route('/api/getwave', methods=['POST']) #use api route for any api related task
 def my_function():
     # ------------receive values------------#
     values = request.get_json()  # convert data (request) in JSON to python dict
