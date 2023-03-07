@@ -81,6 +81,44 @@ This data is set by the user through the *slider* and *colorpicker* components.
 #### Data received
 Our flask API will send back a json object version of the python dictionary: `response_data = {'svg': encoded_svg}`. Where `encoded_svg` contains the svg code encoded as a UTF-8 string.
 
+#### `sendReceiveData`
+This function sends the values to make the wave as described above and then receives an encoded svg also as described above. 
+
+It decodes the encoded svg and then sets it as **the** svg text of the wave, ready for use.
+
+```
+export const sendReceiveData = async (data, setterFunction) => {
+    const response = await fetch("http://127.0.0.1:5000/api/getwave", { //use api route for any api related task
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json", //tell flask what type of data is incoming
+      },
+      body: JSON.stringify(data), //the actual outgoing data in JSON format
+    });
+    const response_data = await response.json(); // obtain the response data. comes in as {svg: encoded_svg}, where encoded_svg is in string, the whole thing is in json.
+    const encoded_svg = response_data.svg; // type: string, base64. Destructure the encoded SVG from our response. It's a string that was encoded from base64.
+    const decoded_svg = atob(encoded_svg); // type: string, svg-xml. The atob() function decodes a string of data which has been encoded using Base64 encoding.
+    setterFunction(decoded_svg); // type: string. Set the binary data as the SVG source
+  };
+```
+
+The setterFunction is the function that sets the svg text of the wave. In our app, that would be `setSvgText`. For example, in our Features component, when a user clicks the *get wave* button:
+
+```
+const Features = () => {
+  const { values } = useContext(ValuesContext); //values to send to py
+  const { svgText, setSvgText } = useContext(WaveContext); //our wave
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    sendReceiveData(values, setSvgText); // send the values, add setter function
+  };
+```
+`sendReceiveData(values, setSvgText)` sends the values and then uses `setSvgText` to set `svgText` to the decoded svg that was received.
+
+* Thus, in order to properly use this function, you must also import WaveContext and give its setSvgText function to it.
+
+
 ### Setting the data (*User's perspective*)
 * In order for a user to set the crazyness, height and amplitude we use the html input tag `<input type="range" ... />`.
 
@@ -111,3 +149,6 @@ In the index.js file, we provide the context in these files to the app:
 </WaveProvider>
 ...
 ```
+* The reason why our values have their own ValuesContext component is because they are set by the Slider and ColorPicker components, which are children of the Features component. The values are sent to the API either from the Features component through the *Get Wave* button, or directly through dropping focus on a Slider or ColorPicker component.
+
+* That is the reason why we also have WaveContext component. The values are sent from several components, and the function sending the values, `sendReceiveData` *(from api.js)*, also receives the svg text of the wave. Therefore, the svg text of the wave can be set from Features or its children: Slider and ColorPicker components, through `sendReceiveData`.
