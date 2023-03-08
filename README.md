@@ -258,17 +258,6 @@ const response = await fetch("http://127.0.0.1:5000/api/getwave", {
       method: "POST", 
 //...
 ```
-
-
-
-
-
-
-
-
-
-
-
 **Note on local runs**
 
 Here we're using flask's own development server which is a single-threaded server that is not optimized for handling multiple requests concurrently. Thus this is good for local use only, for development.
@@ -303,5 +292,6 @@ But this doesn't run on windows. This is basically left for render.com to do.
 
 Sign up using your github account and make your backend folder into its own github repo (same as the frontend folder), then deploy the repo with the following:
   
-  1. Change the Python version of the app by setting the PYTHON_VERSION environment variable to the desired and supported version. It's a key value pair: ![render python](/render_python.png)
-  2. Under settings, set `gunicorn` to run the app as we already [know](#using-gunicorn): ![render gunicorn](/render_gunicorn.png)
+  1. Change the Python version of the app by setting the PYTHON_VERSION environment variable to the desired and supported version. It's a key value pair: ![render python](https://raw.githubusercontent.com/sebastianod/waveMaker/master/render_python.png)
+  2. Under settings, set `gunicorn` to run the app as we already [know](#using-gunicorn): ![render gunicorn](https://raw.githubusercontent.com/sebastianod/waveMaker/master/render_gunicorn.png)
+  
