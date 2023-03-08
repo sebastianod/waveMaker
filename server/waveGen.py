@@ -6,7 +6,9 @@ from flask_cors import CORS
 import json
 from operator import itemgetter
 import io
+import os
 import base64  # to turn svg to string and later to json
+
 
 # Initializing flask app
 app = Flask(__name__)
