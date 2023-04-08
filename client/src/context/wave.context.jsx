@@ -4,14 +4,19 @@ import { createContext, useState } from "react";
 export const WaveContext = createContext({
     svgText: "",
     setSvgText: ()=> {},
+    isLoading: null,
+    setIsLoading: ()=> {},
 })
 
 export const WaveProvider = ({children}) => {
     const [ svgText, setSvgText ] = useState("")
+    const [ isLoading, setIsLoading ] = useState(null);
 
     const providerValue = {
         svgText,
         setSvgText,
+        isLoading,
+        setIsLoading,
     }
 
     return (

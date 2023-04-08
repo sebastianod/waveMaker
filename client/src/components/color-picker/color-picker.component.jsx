@@ -2,7 +2,7 @@ import "./color-picker.styles.scss";
 import { useContext } from "react";
 import { ValuesContext } from "../../context/values.context";
 import { WaveContext } from "../../context/wave.context";
-import { sendReceiveData } from "../../api/api";
+import { useSendReceiveData } from "../../api/api"; //to send data as soon as slider is dropped and set the svgTxt received
 
 const ColorPicker = (props) => {
   //either background or wave color
@@ -10,6 +10,7 @@ const ColorPicker = (props) => {
   const { values, setValues } = useContext(ValuesContext);
   //Send and receive image data as soon as color is selected
   const { setSvgText } = useContext(WaveContext);
+  const sendReceiveData = useSendReceiveData();
 
   const handleChange = (event) => {
     //give its value to the input and to the global set of values

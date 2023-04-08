@@ -2,13 +2,14 @@ import "./slider.styles.scss";
 import { useContext} from "react";
 import { ValuesContext } from "../../context/values.context";
 import { WaveContext } from "../../context/wave.context";
-import { sendReceiveData } from "../../api/api"; //to send data as soon as slider is dropped and set the svgTxt received
+import { useSendReceiveData } from "../../api/api"; //to send data as soon as slider is dropped and set the svgTxt received
 
 const Slider = (props) => {
   const { min, max, step, name, label } = props;
   const { values, setValues } = useContext(ValuesContext); //contains each of the values, height, amplitude and crazyness. To be used in each slider so as to change its own value found here.
   //Since we use sendReceiveData, it needs to set the svgText of the image that comes back as soon as slider is dropped.
   const { setSvgText } = useContext(WaveContext); //our wave
+  const sendReceiveData = useSendReceiveData(); //to send data as soon as slider is dropped and set the svgTxt received, with loading state
 
 
   const handleChange = (event) => {
